@@ -4,25 +4,25 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import axios from "axios";
 
-function useTodos() {
+function useTodos(n) {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios.get("https://sum-server.100xdevs.com/todos").then((response) => {
-      setTodos(response.data.todos);
-      setLoading(false);
-    });
+    setInterval(() => {
+      axios.get("https://sum-server.100xdevs.com/todos").then((response) => {
+        setTodos(response.data.todos);
+        setLoading(false);
+      });
+    }, n * 1000);
   }, []);
   return { todos, loading };
 }
 
 function App() {
-  const { todos, loading } = useTodos();
+  const { todos, loading } = useTodos(4);
 
   if (loading) {
-    {
-      return <div>loading ...</div>;
-    }
+    return <div>loading ...</div>;
   }
   return (
     <>
