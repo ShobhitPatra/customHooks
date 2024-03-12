@@ -6,16 +6,24 @@ import axios from "axios";
 
 function useTodos() {
   const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios
-      .get("https://sum-server.100xdevs.com/todos")
-      .then((response) => setTodos(response.data.todos));
+    axios.get("https://sum-server.100xdevs.com/todos").then((response) => {
+      setTodos(response.data.todos);
+      setLoading(false);
+    });
   }, []);
-  return todos;
+  return { todos, loading };
 }
 
 function App() {
-  const todos = useTodos();
+  const { todos, loading } = useTodos();
+
+  if (loading) {
+    {
+      return <div>loading ...</div>;
+    }
+  }
   return (
     <>
       {todos.map((res) => (
