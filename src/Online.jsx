@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 const useOnline = (n) => {
-  const [isOnline, setIsOnline] = useState(false);
-
+  const [isOnline, setIsOnline] = useState(window.navigator.onLine);
   useEffect(() => {
     setInterval(() => {
-      if (window.navigator.onLine) {
-        setIsOnline(true);
-      }
-    }, [n]);
-  }, n * 1000);
+      window.addEventListener("online", () => setIsOnline(true));
+      window.addEventListener("offline", () => setIsOnline(false));
+    }, n * 1000);
+  }, [n]);
 
   return isOnline;
 };
