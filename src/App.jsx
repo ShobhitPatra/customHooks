@@ -23,7 +23,7 @@ const Component = () => {
       console.log("unmounted");
     };
   }, []);
-
+  
   return (
     <>
       <div>Hello from Component</div>
