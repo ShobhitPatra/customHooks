@@ -4,14 +4,18 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import axios from "axios";
 
-function App() {
+function useTodos() {
   const [todos, setTodos] = useState([]);
   useEffect(() => {
     axios
       .get("https://sum-server.100xdevs.com/todos")
       .then((response) => setTodos(response.data.todos));
   }, []);
+  return todos;
+}
 
+function App() {
+  const todos = useTodos();
   return (
     <>
       {todos.map((res) => (
